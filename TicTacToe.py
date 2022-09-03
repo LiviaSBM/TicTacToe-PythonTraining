@@ -5,7 +5,8 @@
 
 
 def parametrosdousuario():
-        
+
+    #Module for asking which mark the player 1 wants to use: X or O    
     #Perguntar qual marcador o usuario quer
     player1 = input("Player 1, select either X or O: ")
     while player1 not in ["X","x","o","O"]:
@@ -23,13 +24,15 @@ player1, player2 = parametrosdousuario()
 
 # In[4]:
 
-
+#Module for rolling the game
 def jogadas(player1,player2):
+    #The variable below prints the game pattern with the numbered positions for the player to choose
     pattern = "1|2|3\n-----\n4|5|6\n-----\n7|8|9"
     print(pattern)
     positionsavailable = "123456789"
     winner=True
     
+    #Variables for recording each player's move
     row1=0
     row2=0
     row3=0
@@ -48,6 +51,7 @@ def jogadas(player1,player2):
         positionsavailable = positionsavailable.replace(markplayer1,"")
         print(f"Here's the updated board:\n{pattern}\n")
         
+        #Every move of Player 1 adds up 1 to each row/column/cross variable
         if markplayer1=="1":
             row1 += 1
             column1 += 1
@@ -82,17 +86,16 @@ def jogadas(player1,player2):
             column3 += 1
             cross1 += 1
         lista=[row1,row2,row3,column1,column2,column3,cross1,cross2]
+        
+        #Condition for defining P1 as winner: as soon as each variable reaches 3,
+        #it means P1 is the winner
         if 3 in lista:
             return "player 1 is the winner"
             winner=False
         elif positionsavailable=="":
-            return "No winners today :)"
-            
-        #print(lista)
-        #print(positionsavailable)
-        #print(winner)
+            return "No winners today :)"        
         
-        
+        #P2 turn
         markplayer2=input("\nPlayer 2, Choose one position to mark: ")
         while markplayer2 not in positionsavailable:
             markplayer2 = input("I'm sorry, this position isn't avaliable. Please choose an available position: ")
@@ -100,6 +103,8 @@ def jogadas(player1,player2):
         positionsavailable = positionsavailable.replace(markplayer2,"")
         print(f"Here's the updated board:\n{pattern}\n")
         
+        #Differently from P1, each P2 move adds up +5 to each variable
+        #Thus, as soon as any variable reaches 15, it means P2 wins
         if markplayer2=="1":
             row1 += 5
             column1 += 5
@@ -135,9 +140,6 @@ def jogadas(player1,player2):
             cross1 += 5     
         
         lista=[row1,row2,row3,column1,column2,column3,cross1,cross2]
-        #print(lista)
-        #print(positionsavailable)
-        #print(winner)
 
         if 15 in lista:
             return "player 2 is the winner"
